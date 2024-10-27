@@ -108,8 +108,13 @@ const pdftobuffer = async (pdf, page, progress = false) => {
  * @returns {number} Total pages from the pdf passed in `pdf`
  */
 const pdftocount = async (pdf) => {
-    const pdfDoc = await PDFDocument.load(pdf);
-    return pdfDoc.getPageCount();
+    try {
+        const pdfDoc = await PDFDocument.load(pdf);
+        return pdfDoc.getPageCount();
+    } catch (error) {
+        console.warn(`Error: ${error.message}`);
+        return 1;
+    }
 };
 
 /**
